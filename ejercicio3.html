@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar en Tabla</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    .hidden {
+      display: none;
+    }
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscar en la Tabla</h1>
+  <form id="search-form">
+    <label for="search-input">Buscar:</label>
+    <input type="text" id="search-input" placeholder="Escribe el término a buscar">
+    <button type="button" id="search-button">Buscar</button>
+  </form>
+  <p id="results-container">Resultados: 0</p>
+
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Palabra</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Manzana</td>
+        <td>Fruta roja y dulce</td>
+      </tr>
+      <tr>
+        <td>Banana</td>
+        <td>Fruta amarilla y nutritiva</td>
+      </tr>
+      <tr>
+        <td>Manzana</td>
+        <td>Fruta usada en pasteles</td>
+      </tr>
+      <tr>
+        <td>Pera</td>
+        <td>Fruta verde o amarilla</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    document.getElementById('search-button').addEventListener('click', function () {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const table = document.getElementById('data-table');
+      const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+      let matchCount = 0;
+
+ 
+      for (const row of rows) {
+        row.classList.remove('hidden');
+        for (const cell of row.cells) {
+          cell.classList.remove('highlight');
+        }
+      }
+
+     
+      for (const row of rows) {
+        let rowMatches = false;
+        for (const cell of row.cells) {
+          if (cell.textContent.toLowerCase().includes(searchTerm) && searchTerm) {
+            rowMatches = true;
+            cell.classList.add('highlight');
+            matchCount++;
+          }
+        }
+        if (!rowMatches) {
+          row.classList.add('hidden');
+        }
+      }
+
+      document.getElementById('results-container').textContent = `Resultados: ${matchCount}`;
+    });
+  </script>
+</body>
+</html>

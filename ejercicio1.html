@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h2>Formulario de Registro</h2>
+    <form id="registroFormulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre"><br><br>
+
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo"><br><br>
+
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" id="contraseña" name="contraseña"><br><br>
+
+        <button type="submit">Registrar</button>
+        <p id="mensajeError" class="error"></p>
+    </form>
+
+    <script>
+        document.getElementById('registroFormulario').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario por defecto
+
+        
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contraseña = document.getElementById('contraseña').value;
+            const mensajeError = document.getElementById('mensajeError');
+
+          
+            mensajeError.textContent = '';
+
+            if (nombre === '' || correo === '' || contraseña === '') {
+                mensajeError.textContent = 'Todos los campos son obligatorios.';
+                return;
+            }
+
+            if (contraseña.length < 6) {
+                mensajeError.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+                return;
+            }
+            else{
+                console.log('Nombre:', nombre);
+                console.log('Correo:', correo);
+                console.log('Contraseña:', contraseña);
+    
+                
+                alert("Formulario enviado con éxito.");
+                
+            }
+           
+        });
+    </script>
+
+</body>
+</html>
